@@ -1,6 +1,6 @@
 import PageHome from "../pages/Home.page.svelte";
 import PageResult from "../pages/Result.page.svelte";
-import PageTestingStep from "../pages/TestingStep.page.svelte";
+import PageTestingStep from "../pages/Step.page.svelte";
 import PageNotFound from "../pages/NotFound.page.svelte";
 import PageError from "../pages/Error.page.svelte";
 
