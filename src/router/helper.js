@@ -1,9 +1,20 @@
-import { compile } from 'path-to-regexp';
-import queryString from 'query-string';
+import { parse, compile } from "path-to-regexp";
+import queryString from "query-string";
 
 export const href = (path, params = {}, options = {}) => {
-  const queries = ((query) => query ? `?${query}` : '')(queryString.stringify(params, options));
+  const tokens = parse(path);
+  const queries = ((query) => (query ? `?${query}` : ""))(
+    queryString.stringify(
+      Object.keys(params).reduce((result, current) => {
+        if (tokens.some((token) => token.name === current)) {
+          return result;
+        }
+        result[current] = params[current];
+        return result;
+      }, {}),
+      options
+    )
+  );
   const compiler = compile(path);
-  console.debug(compiler);
   return `${compiler(params)}${queries}`;
 };

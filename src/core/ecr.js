@@ -48,6 +48,16 @@ export const QuestionList = [
     '상대방이 나를 떠나서 많은 시간을 보냈을 때 나는 불쾌하다',
 ];
 
+export const question = (index) => {
+    if (Number.isNaN(Number(index)) ||
+        index < 0 ||
+        index > QuestionList.length - 1 ||
+        !QuestionList[index]) {
+        throw new TypeError('문항 번호가 잘못되었습니다.')
+    }
+    return QuestionList[index];
+};
+
 export const score = (index, value) => {
     if (Number.isNaN(Number(index)) ||
         index < 0 ||
