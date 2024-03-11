@@ -1,7 +1,7 @@
 <script>
-    import { ScoreLabelMap } from "../core/step";
-    import { question } from "../core/ecr";
-    import {beforeUpdate, onMount} from "svelte";
+    import {ScoreLabelMap} from "../core/step";
+    import {question} from "../core/ecr";
+    import {beforeUpdate} from "svelte";
 
     export let step;
 
@@ -29,7 +29,7 @@
     <h1>{title}</h1>
     {#each Object.keys(ScoreLabelMap) as scoreKey}
         <label>
-            <input type="radio" name="score" value={scoreKey} />
+            <input type="radio" name="score" value={scoreKey}/>
             ({scoreKey}) {ScoreLabelMap[scoreKey]}
         </label>
     {/each}
