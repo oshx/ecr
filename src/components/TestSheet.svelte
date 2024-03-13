@@ -1,36 +1,38 @@
 <script>
-    import {ScoreLabelMap} from "../core/step";
-    import {question} from "../core/ecr";
-    import {beforeUpdate} from "svelte";
+  import { ScoreLabelMap } from "../core/step";
+  import { question } from "../core/ecr";
+  import { beforeUpdate } from "svelte";
 
-    export let step;
+  export let step;
 
-    let title = null;
-    let blocked = false;
+  let title = null;
+  let sane = false;
 
-    const fetchQuestion = async () => {
-        title = null;
-        blocked = false;
-        try {
-            title = question(step);
-            blocked = false;
-        } catch (error) {
-            title = error.message;
-            blocked = true;
-        }
-    };
-    beforeUpdate(fetchQuestion);
+  const fetchQuestion = async () => {
+    title = null;
+    sane = false;
+    try {
+      title = question(step);
+      sane = true;
+    } catch (error) {
+      title = error.message;
+      sane = false;
+    }
+  };
+  beforeUpdate(fetchQuestion);
 </script>
 
 <h2>TestSheet</h2>
-{#if blocked}
-    <h1 style="color: red;">{title}</h1>
+{#if sane}
+  <h1>{title}</h1>
+  {#each Object.keys(ScoreLabelMap) as scoreKey}
+    {#if ScoreLabelMap[scoreKey]}
+      <label>
+        <input type="radio" name="score" value={scoreKey} />
+        ({scoreKey}) {ScoreLabelMap[scoreKey]}
+      </label>
+    {/if}
+  {/each}
 {:else}
-    <h1>{title}</h1>
-    {#each Object.keys(ScoreLabelMap) as scoreKey}
-        <label>
-            <input type="radio" name="score" value={scoreKey}/>
-            ({scoreKey}) {ScoreLabelMap[scoreKey]}
-        </label>
-    {/each}
+  <h1 style="color: red;">{title}</h1>
 {/if}

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
+    "predev": "npm run bust",
     "bust": "rimraf ./.parcel-cache",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,6 +26,7 @@
     "svelte": "^3.59.2"
   },
   "dependencies": {
+    "base62": "^2.0.1",
     "path-to-regexp": "^6.2.1",
     "query-string": "^9.0.0",
     "svelte-spa-router": "^4.0.1"
