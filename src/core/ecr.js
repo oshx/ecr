@@ -1,3 +1,5 @@
+import {STEP_CHUNK} from "./constants";
+
 export const BackwardScoreList = [
     3, 15, 19, 22, 25, 27, 29, 31, 33,
 ];
@@ -48,14 +50,17 @@ export const QuestionList = [
     '상대방이 나를 떠나서 많은 시간을 보냈을 때 나는 불쾌하다',
 ];
 
-export const question = (index) => {
+export const question = (index, chunk = STEP_CHUNK) => {
     if (Number.isNaN(Number(index)) ||
         index < 0 ||
         index > QuestionList.length - 1 ||
         !QuestionList[index]) {
         throw new TypeError('문항 번호가 잘못되었습니다.')
     }
-    return QuestionList[index];
+    if (Number.isNaN(Number(chunk)) || !Number.isInteger(chunk) || chunk < 0) {
+        throw new TypeError('문제 요청 수가 잘못되었습니다.')
+    }
+    return QuestionList.slice(index, index + chunk);
 };
 
 export const score = (index, value) => {

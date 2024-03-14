@@ -4,7 +4,7 @@ import "./core/ecr";
 const app = new App({
   target: window.document.body,
   props: {
-    name: "ECR",
+    name: "svelte",
   },
 });
 
