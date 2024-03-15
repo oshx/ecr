@@ -1,4 +1,5 @@
 import { parse, compile } from "path-to-regexp";
+export * from "svelte-spa-router";
 import queryString from "query-string";
 
 export const href = (path, params = {}, options = {}) => {

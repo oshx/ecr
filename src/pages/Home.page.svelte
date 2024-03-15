@@ -1,7 +1,6 @@
 <script>
-  import { link } from "svelte-spa-router";
-  import { href } from "../router/helper";
-  import { PATH_RESULT, PATH_STEP } from "../router/routes.config";
+  import {href, link} from "../router/helper";
+  import {PATH_RESULT, PATH_STEP} from "../router/routes.config";
 </script>
 
 <main>

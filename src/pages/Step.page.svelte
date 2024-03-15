@@ -8,10 +8,10 @@
 </script>
 
 <section>
-    <a href={href(PATH_STEP, { step: 1, answers: 2 })} use:link>Step1</a>
-    <a href={href(PATH_STEP, { step: 2 })} use:link>Step2</a>
-    <a href={href(PATH_STEP, { step: 3 })} use:link>Step3</a>
-    <a href={href(PATH_STEP, { step: 4 })} use:link>Step4</a>
-    <h1>Step.page.svelte</h1>
-    <TestSheet step={params.step}/>
+  <a href={href(PATH_STEP, { step: 1, answers: 2 })} use:link>Step1</a>
+  <a href={href(PATH_STEP, { step: 2 })} use:link>Step2</a>
+  <a href={href(PATH_STEP, { step: 3 })} use:link>Step3</a>
+  <a href={href(PATH_STEP, { step: 4 })} use:link>Step4</a>
+  <h1>Step.page.svelte</h1>
+  <TestSheet step={params.step}/>
 </section>
