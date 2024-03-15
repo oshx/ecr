@@ -1,18 +1,19 @@
 <script>
-  import { href, link } from "../router/helper";
-  import { PATH_RESULT } from "../router/routes.config";
   import TopNavigation from "../components/TopNavigation.svelte";
   import InformationSheet from "../components/InformationSheet.svelte";
   import ExperimentSheet from "../components/ExperimentSheet.svelte";
   import { QuestionList, SERVICE_NAME } from "../core/constants";
+  import { convertAnswerToParam } from "../core/ecr";
 
   export let params;
 
-  const result = Array(QuestionList.length);
+  const answerList = Array(QuestionList.length).fill(0).map((_, index) => Math.floor(index/10 + 1));
 
   const handleSelect = (customEvent) => {
-    result[customEvent.detail[0]] = customEvent.detail[1];
-    console.log(result);
+    answerList[customEvent.detail[0]] = customEvent.detail[1];
+  };
+  const handleGoToResult = () => {
+    convertAnswerToParam(answerList);
   };
 </script>
 
@@ -22,5 +23,5 @@
 <TopNavigation />
 <InformationSheet />
 
-<a href={href(PATH_RESULT, { result: 15 })} use:link>결과로 이동</a>
+<button on:click={handleGoToResult}>결과 보기</button>
 <ExperimentSheet on:select={handleSelect} />

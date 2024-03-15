@@ -80,4 +80,4 @@ export const ResultList = [
 
 export const STEP_CHUNK = 10;
 
-export const STEP_TOTAL = Math.ceil((QuestionList.length - 1) / STEP_CHUNK);
+export const SEPARATOR = "-";
