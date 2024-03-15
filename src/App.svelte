@@ -1,15 +1,18 @@
 <script>
   import routes from "./router/routes.config";
   import Router from "svelte-spa-router";
-
-  export let name;
 </script>
 
-<h1>Hello {name}!</h1>
 <Router {routes} />
 
 <style>
-  h1 {
-    text-align: center;
-  }
+:global(html, body) {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+:global(h1, h2, h3, h4, h5, h6) {
+  font-style: normal;
+  font-weight: 400;
+}
 </style>

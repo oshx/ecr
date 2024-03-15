@@ -1,11 +1,13 @@
 <script>
   import {href, link} from "../router/helper";
   import {PATH_RESULT, PATH_STEP} from "../router/routes.config";
+  import TopNavigation from "../components/TopNavigation.svelte";
+  import InformationSheet from "../components/InformationSheet.svelte";
 </script>
 
-<main>
-  <h1>성인애착유형 검사</h1>
-</main>
+<TopNavigation />
+<InformationSheet />
+
 <a href={href(PATH_RESULT, { result: 15 })} use:link>결과로 이동</a>
 <a href={href(PATH_STEP, { step: 1, answers: 2 })} use:link>Step1</a>
 <a href={href(PATH_STEP, { step: 36 })} use:link>Step36</a>
