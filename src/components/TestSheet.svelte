@@ -1,7 +1,6 @@
 <script>
   import {beforeUpdate, createEventDispatcher} from "svelte";
-  import {ScoreLabelMap} from "../core/constants"
-  import {question} from "../core/ecr";
+  import {ScoreLabelMap, QuestionList} from "../core/constants"
 
   export let step;
 
@@ -12,10 +11,7 @@
     list = [];
     message = null;
     try {
-      list = question(((step - 1) * 10));
-      console.log(step, (step - 1) * 10, list);
     } catch (error) {
-      message = error.message;
     }
   };
 
@@ -31,8 +27,8 @@
 {#if message}
   <h3 class="test-sheet__title test-sheet__title--error">{message}</h3>
 {:else}
-  {#each list as item, index}
-    <h3 class="test-sheet__title">{item}</h3>
+  {#each QuestionList as question, index}
+    <h3 class="test-sheet__title">{question}</h3>
     {#each Object.keys(ScoreLabelMap) as scoreKey}
       <label>
         <input type="radio" name={index}
