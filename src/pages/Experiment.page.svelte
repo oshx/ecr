@@ -4,16 +4,18 @@
   import ExperimentSheet from "../components/ExperimentSheet.svelte";
   import { QuestionList, SERVICE_NAME } from "../core/constants";
   import { convertAnswerToParam } from "../core/ecr";
+  import { href, push } from "../router/helper";
+  import { PATH_RESULT } from "../router/routes.config";
 
   export let params;
 
-  const answerList = Array(QuestionList.length).fill(0).map((_, index) => Math.floor(index/10 + 1));
+  const answerList = Array(QuestionList.length).fill(0).map((_, index) => Math.floor(index / 10 + 1));
 
   const handleSelect = (customEvent) => {
     answerList[customEvent.detail[0]] = customEvent.detail[1];
   };
   const handleGoToResult = () => {
-    convertAnswerToParam(answerList);
+    push(href(PATH_RESULT, { result: convertAnswerToParam(answerList) }));
   };
 </script>
 

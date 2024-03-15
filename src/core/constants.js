@@ -2,8 +2,6 @@ export const SERVICE_NAME = "성인애착유형 검사";
 
 export const BackwardScoreList = [3, 15, 19, 22, 25, 27, 29, 31, 33];
 
-export const ScoreList = [1, 2, 3, 4, 5];
-
 export const ScoreLabelMap = {
   1: "전혀 그렇지 않다",
   2: "그렇지 않다",
@@ -12,10 +10,6 @@ export const ScoreLabelMap = {
   5: "매우 그렇다",
 };
 
-export const QuestionType = {
-  EVASION: 0,
-  ANXIETY: 1,
-};
 export const QuestionList = [
   "내가 얼마나 호감을 가지고 있는지 상대방에게 보이고 싶지 않다",
   "나는 버림을 받는 것에 대해 걱정하는 편이다",
@@ -23,7 +17,7 @@ export const QuestionList = [
   "나는 다른 사람과의 관계에 대해 많이 걱정하는 편이다",
   "상대방이 막 나와 친해지려고 할 때 꺼려하는 나를 발견한다",
   "내가 다른 사람에게 관심을 가지는 만큼 그들이 나에게 관심을 가지지 않을까봐 걱정이다",
-  "나는 다른 사람이 나와 배우 가까워지려 할 때 불편하다",
+  "나는 다른 사람이 나와 매우 가까워지려 할 때 불편하다",
   "나는 나와 친한 사람을 잃을까봐 꽤 걱정이 된다",
   "나는 다른 사람에게 마음을 여는 것이 편안하지 못하다",
   "나는 종종 내가 상대방에게 호의를 보이는 만큼 상대방도 그렇게 해 주기를 바란다",
@@ -77,6 +71,10 @@ export const ResultList = [
       "나는 남들과 가까워지면 편하지가 않다. 남들과 정서적으로 가까운 관계를 원하지만 그렇다고 남들을 신뢰하거나 남들에게 전적으로 의지하기가 어렵다. 상처가 두렵다.",
   },
 ];
+
+export const AVOIDANCE_THRESHOLD = 42;
+
+export const ANXIETY_THRESHOLD = 47;
 
 export const STEP_CHUNK = 10;
 
