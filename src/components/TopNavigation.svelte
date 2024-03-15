@@ -1,10 +1,10 @@
 <script>
   import {href, link} from "../router/helper";
-  import {PATH_HOME} from "../router/routes.config";
+  import {PATH_EXPERIMENT} from "../router/routes.config";
 </script>
 
 <h1 title="ECR Test">
-  <a href={href(PATH_HOME)} use:link>
+  <a href={href(PATH_EXPERIMENT)} use:link>
     성인애착유형 검사
   </a>
 </h1>

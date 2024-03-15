@@ -1,3 +1,5 @@
+export const SERVICE_NAME = "성인애착유형 검사";
+
 export const BackwardScoreList = [3, 15, 19, 22, 25, 27, 29, 31, 33];
 
 export const ScoreList = [1, 2, 3, 4, 5];
