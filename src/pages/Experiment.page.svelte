@@ -1,15 +1,18 @@
 <script>
-  import TopNavigation from "../components/TopNavigation.svelte";
-  import InformationSheet from "../components/InformationSheet.svelte";
-  import ExperimentSheet from "../components/ExperimentSheet.svelte";
   import { QuestionList, SERVICE_NAME } from "../core/constants";
   import { convertAnswerToParam } from "../core/ecr";
   import { href, push } from "../router/helper";
   import { PATH_RESULT } from "../router/routes.config";
+  import TopNavigation from "../components/TopNavigation.svelte";
+  import InformationSheet from "../components/InformationSheet.svelte";
+  import ExperimentSheet from "../components/ExperimentSheet.svelte";
+  import ExperimentIndicator from "../components/ExperimentIndicator.svelte";
 
   export let params;
 
-  const answerList = Array(QuestionList.length).fill(0).map((_, index) => Math.floor(index / 10 + 1));
+  console.log(params);
+
+  const answerList = Array(QuestionList.length).fill(0);
 
   const handleSelect = (customEvent) => {
     answerList[customEvent.detail[0]] = customEvent.detail[1];
@@ -22,8 +25,11 @@
 <svelte:head>
   <title>검사 시작 - {SERVICE_NAME}</title>
 </svelte:head>
-<TopNavigation />
-<InformationSheet />
-
-<button on:click={handleGoToResult}>결과 보기</button>
-<ExperimentSheet on:select={handleSelect} />
+<form on:submit|preventDefault={handleGoToResult}>
+  <input type="hidden" value={} />
+  <TopNavigation />
+  <InformationSheet />
+  <ExperimentSheet on:select={handleSelect} />
+  <ExperimentIndicator progress={answerList.filter(answer => answer !== 0).length}
+                       total={answerList.length} />
+</form>
