@@ -2,35 +2,38 @@
   import { beforeUpdate, createEventDispatcher } from "svelte";
   import { QuestionList, ScoreLabelMap } from "../core/constants";
 
+  export let answerList = [];
+
   let message = null;
 
-  const fetchQuestion = async () => {
-    try {
-    } catch (error) {
-    }
-  };
+  const onUpdate = async () => {};
 
   const dispatch = createEventDispatcher();
 
   const createChangeEventHandler = (index) => (changeEvent) => {
     dispatch("select", [index, changeEvent.currentTarget.value]);
   };
-  beforeUpdate(fetchQuestion);
+  beforeUpdate(onUpdate);
 </script>
 
 <section class="experiment-sheet">
   {#if message}
-    <h2
-      class="experiment-sheet__title experiment-sheet__title--error">{message}</h2>
+    <h2 class="experiment-sheet__title experiment-sheet__title--error">
+      {message}
+    </h2>
   {:else}
     {#each QuestionList as question, index}
       <h2 class="experiment-sheet__title">{question}</h2>
       <div class="experiment-sheet__answer">
         {#each Object.keys(ScoreLabelMap) as scoreKey}
           <label>
-            <input type="radio" name={index}
-                   on:change={createChangeEventHandler(index)}
-                   value={scoreKey} />
+            <input
+              type="radio"
+              name={index}
+              on:change={createChangeEventHandler(index)}
+              value={scoreKey}
+              checked={answerList[index] === scoreKey}
+            />
             <span>
               <strong>
                 {ScoreLabelMap[scoreKey]}
@@ -71,7 +74,8 @@
     line-height: 0;
   }
 
-  .experiment-sheet__answer label, .experiment-sheet__answer label * {
+  .experiment-sheet__answer label,
+  .experiment-sheet__answer label * {
     cursor: pointer;
   }
 
@@ -110,7 +114,7 @@
     opacity: 0;
     border-radius: 4px;
     background-color: #eee;
-    transition: opacity .25s ease-out;
+    transition: opacity 0.25s ease-out;
     box-shadow: inset 0 0 8px 8px #369;
   }
 

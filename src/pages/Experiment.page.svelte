@@ -26,10 +26,10 @@
   <title>검사 시작 - {SERVICE_NAME}</title>
 </svelte:head>
 <form on:submit|preventDefault={handleGoToResult}>
-  <input type="hidden" value={} />
+  <input type="hidden" name='answer' value={''} />
   <TopNavigation />
   <InformationSheet />
-  <ExperimentSheet on:select={handleSelect} />
+  <ExperimentSheet on:select={handleSelect} answerList={answerList} />
   <ExperimentIndicator progress={answerList.filter(answer => answer !== 0).length}
                        total={answerList.length} />
 </form>
