@@ -7,29 +7,42 @@
   import InformationSheet from "../components/InformationSheet.svelte";
   import ExperimentSheet from "../components/ExperimentSheet.svelte";
   import ExperimentIndicator from "../components/ExperimentIndicator.svelte";
+  import Message from "../components/Message.svelte";
+  import Corset from "../components/layouts/Corset.svelte";
 
-  export let params;
+  let message = null;
+  let answerList = Array(QuestionList.length).fill(0);
 
-  console.log(params);
+  function resolveMessage() {
+    message = null;
+  }
 
-  const answerList = Array(QuestionList.length).fill(0);
-
-  const handleSelect = (customEvent) => {
+  function handleSelect(customEvent) {
     answerList[customEvent.detail[0]] = customEvent.detail[1];
-  };
-  const handleGoToResult = () => {
-    push(href(PATH_RESULT, { result: convertAnswerToParam(answerList) }));
-  };
+  }
+
+  function handleSubmit() {
+    try {
+      const result = convertAnswerToParam(answerList);
+      return push(href(PATH_RESULT, { result }));
+    } catch (error) {
+      message = error.message;
+    }
+  }
 </script>
 
 <svelte:head>
   <title>검사 시작 - {SERVICE_NAME}</title>
 </svelte:head>
-<form on:submit|preventDefault={handleGoToResult}>
-  <input type="hidden" name='answer' value={''} />
-  <TopNavigation />
-  <InformationSheet />
-  <ExperimentSheet on:select={handleSelect} answerList={answerList} />
-  <ExperimentIndicator progress={answerList.filter(answer => answer !== 0).length}
-                       total={answerList.length} />
-</form>
+<Corset>
+  <form on:submit|preventDefault={handleSubmit}>
+    <TopNavigation />
+    <InformationSheet />
+    <ExperimentSheet {answerList} on:select={handleSelect} />
+    <ExperimentIndicator
+      progress={answerList.filter((answer) => answer !== 0).length}
+      total={answerList.length}
+    />
+    <Message {message} on:resolve={resolveMessage} />
+  </form>
+</Corset>

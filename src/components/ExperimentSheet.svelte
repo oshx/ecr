@@ -4,82 +4,141 @@
 
   export let answerList = [];
 
-  let message = null;
-
-  const onUpdate = async () => {};
+  export let message = null;
 
   const dispatch = createEventDispatcher();
+
+  async function handleUpdate() {
+    return window.document
+      .querySelector(
+        `#experiment-card${answerList.findIndex((value) => !value)}`
+      )
+      ?.scrollIntoView({
+        behavior: "smooth",
+      });
+  }
 
   const createChangeEventHandler = (index) => (changeEvent) => {
     dispatch("select", [index, changeEvent.currentTarget.value]);
   };
-  beforeUpdate(onUpdate);
+
+  beforeUpdate(handleUpdate);
 </script>
 
-<section class="experiment-sheet">
+<div class="experiment-sheet">
   {#if message}
-    <h2 class="experiment-sheet__title experiment-sheet__title--error">
+    <h2 class="experiment-sheet__title">
       {message}
     </h2>
   {:else}
     {#each QuestionList as question, index}
-      <h2 class="experiment-sheet__title">{question}</h2>
-      <div class="experiment-sheet__answer">
-        {#each Object.keys(ScoreLabelMap) as scoreKey}
-          <label>
-            <input
-              type="radio"
-              name={index}
-              on:change={createChangeEventHandler(index)}
-              value={scoreKey}
-              checked={answerList[index] === scoreKey}
-            />
-            <span>
+      <div
+        id={`experiment-card${index}`}
+        class="card experiment-sheet__card"
+        class:card--completed={answerList[index]}
+      >
+        <h2 class="card__title">
+          <span>[{index + 1}/{QuestionList.length}]</span>
+          <strong>{question}</strong>
+          <em>
+            (
+            {#if answerList[index]}
+              {answerList[index]}
+            {:else}
+              &nbsp;
+            {/if}
+            )
+          </em>
+        </h2>
+        <div class="selection">
+          {#each Object.keys(ScoreLabelMap) as scoreKey}
+            <label>
+              <input
+                type="radio"
+                name={index}
+                on:change|preventDefault={createChangeEventHandler(index)}
+                value={scoreKey}
+                checked={answerList[index] === scoreKey}
+              />
               <strong>
                 {ScoreLabelMap[scoreKey]}
               </strong>
               <em>{scoreKey}점</em>
-            </span>
-          </label>
-        {/each}
+            </label>
+          {/each}
+        </div>
       </div>
     {/each}
   {/if}
-</section>
+</div>
 
 <style>
-  .experiment-sheet {
+  .card {
     display: block;
+    margin: 16px auto 0;
+    padding: 8px 16px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px #eee;
   }
 
-  .experiment-sheet__title {
+  .card.card--completed {
+    background-color: #eee;
+    box-shadow: 0 0 4px #eee;
+  }
+
+  .selection {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .selection label {
+    position: relative;
+    display: flex;
+    justify-content: stretch;
+    flex-direction: column;
+    justify-self: stretch;
+    flex-grow: 1;
+  }
+
+  .item {
+    display: block;
+    padding: 12px 8px;
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: center;
+    white-space: normal;
+    word-break: keep-all;
+    color: #666;
+  }
+
+  .item--hidden {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .card__title {
     font-size: 24px;
   }
 
-  .experiment-sheet__title.experiment-sheet__title--error {
+  .experiment-sheet__title {
     color: #f00;
+    font-size: 24px;
   }
 
-  .experiment-sheet__answer {
-    display: flex;
-  }
-
-  .experiment-sheet__answer label {
+  label {
     position: relative;
-    display: block;
-    flex: 1;
-    white-space: nowrap;
-    text-align: center;
-    font-size: 0;
-    line-height: 0;
   }
 
-  .experiment-sheet__answer label,
-  .experiment-sheet__answer label * {
+  label,
+  label * {
     cursor: pointer;
   }
 
-  .experiment-sheet__answer label::after {
+  label::after {
     content: "";
     display: inline-block;
     width: 0;
@@ -87,12 +146,7 @@
     vertical-align: middle;
   }
 
-  .experiment-sheet__answer label input {
-    position: absolute;
-    opacity: 0;
-  }
-
-  .experiment-sheet__answer label span {
+  label span {
     display: inline-block;
     padding: 12px 8px;
     font-size: 16px;
@@ -104,21 +158,21 @@
     color: #666;
   }
 
-  .experiment-sheet__answer label span::before {
-    content: "";
+  label span::before {
+    content: "\2713";
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    left: 50%;
     opacity: 0;
     border-radius: 4px;
-    background-color: #eee;
     transition: opacity 0.25s ease-out;
-    box-shadow: inset 0 0 8px 8px #369;
+    font-size: 32px;
+    line-height: 1.4;
   }
 
-  .experiment-sheet__answer label span::after {
+  label span::after {
     content: "";
     position: absolute;
     top: 1px;
@@ -129,26 +183,27 @@
     border-radius: 4px;
   }
 
-  .experiment-sheet__answer label input:checked + span {
-    color: #369;
+  label input:checked + span {
+    background-color: #369;
+    color: #aaa;
   }
 
-  .experiment-sheet__answer label input:checked + span::before {
+  label input:checked + span::before {
     opacity: 1;
   }
 
-  .experiment-sheet__answer label input:checked + span::after {
+  label input:checked + span::after {
     border-style: solid;
     border-color: #369;
   }
 
-  .experiment-sheet__answer label span strong {
+  label span strong {
     position: relative;
     display: block;
     font-style: normal;
   }
 
-  .experiment-sheet__answer label span em {
+  label span em {
     position: relative;
     display: block;
     font-style: normal;

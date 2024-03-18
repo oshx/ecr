@@ -12,15 +12,14 @@ import {
 const convertAnswerToChunk = (answerList, unit) =>
   Array(Math.ceil(answerList.length / unit))
     .fill(null)
-    .map((_, index) => {
-      console.debug();
-      return Number(
+    .map((_, index) =>
+      Number(
         answerList
           .slice()
           .slice(index * unit, index * unit + unit)
           .join("")
-      );
-    });
+      )
+    );
 
 const convertChunkToParam = (chunkList) =>
   chunkList.map((chunk) => encode(parseInt(chunk, 6))).join(SEPARATOR);
