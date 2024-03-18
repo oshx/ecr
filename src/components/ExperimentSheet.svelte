@@ -25,34 +25,25 @@
   beforeUpdate(handleUpdate);
 </script>
 
-<div class="experiment-sheet">
+<div>
   {#if message}
-    <h2 class="experiment-sheet__title">
+    <h2>
       {message}
     </h2>
   {:else}
     {#each QuestionList as question, index}
       <div
         id={`experiment-card${index}`}
-        class="card experiment-sheet__card"
+        class="card"
         class:card--completed={answerList[index]}
       >
-        <h2 class="card__title">
-          <span>[{index + 1}/{QuestionList.length}]</span>
-          <strong>{question}</strong>
-          <em>
-            (
-            {#if answerList[index]}
-              {answerList[index]}
-            {:else}
-              &nbsp;
-            {/if}
-            )
-          </em>
+        <h2 class="title">
+          <span class="title__prefix">{index + 1}/{QuestionList.length}</span>
+          <strong class="title__main">{question}</strong>
         </h2>
-        <div class="selection">
+        <div class="content">
           {#each Object.keys(ScoreLabelMap) as scoreKey}
-            <label>
+            <label class="item">
               <input
                 type="radio"
                 name={index}
@@ -75,137 +66,132 @@
 <style>
   .card {
     display: block;
-    margin: 16px auto 0;
-    padding: 8px 16px;
+    margin: 24px auto 0;
     border: 1px solid #eee;
     border-radius: 8px;
-    box-shadow: 1px 1px 4px #eee;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1), inset 0 0 4px #fff;
+    color: #000;
   }
 
   .card.card--completed {
-    background-color: #eee;
-    box-shadow: 0 0 4px #eee;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.25), 0 0 128px inset rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,.3);
   }
 
-  .selection {
-    display: flex;
-    align-items: stretch;
+  .title {
+    display: block;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 400;
+    border-radius: 8px 8px 0 0;
+    color: inherit;
+    background-image: linear-gradient(90deg, transparent, rgba(33, 66, 99, 0.1));
   }
 
-  .selection label {
-    position: relative;
+  .title::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .title__prefix {
+    float: right;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 4px 8px;
+    border-radius: 4px 4px 0 0;
+    text-align: right;
+    background-color: rgba(33,66,99,.1);
+    border-radius: 0 8px 0 8px;
+  }
+  .title__main {
+    display: block;
+    padding: 16px;
+    font-weight: 900;
+    word-break: keep-all;
+  }
+
+  .title__main::before,
+  .title__main::after {
+    content: "";
+    display: inline-block;
+    margin: 0 4px;
+    border: 4px solid rgba(0,0,0,.15);
+    width: 4px;
+    height: 4px;
+  }
+
+  .title__main::before {
+    border-right: 0;
+    border-bottom: 0;
+    vertical-align: text-top;
+  }
+
+  .title__main::after {
+    border-top: 0;
+    border-left: 0;
+    vertical-align: text-bottom;
+  }
+
+  .content {
     display: flex;
+    flex-direction: row;
     justify-content: stretch;
-    flex-direction: column;
-    justify-self: stretch;
-    flex-grow: 1;
   }
 
   .item {
-    display: block;
-    padding: 12px 8px;
-    font-size: 16px;
-    line-height: 1.4;
-    text-align: center;
-    white-space: normal;
-    word-break: keep-all;
-    color: #666;
-  }
-
-  .item--hidden {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    opacity: 0;
-  }
-
-  .card__title {
-    font-size: 24px;
-  }
-
-  .experiment-sheet__title {
-    color: #f00;
-    font-size: 24px;
-  }
-
-  label {
     position: relative;
+    display: flex;
+    margin: 4px;
+    padding: 8px 4px;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    word-break: keep-all;
+    justify-content: center;
+    flex-grow: 1;
+    flex-shrink: 1;
   }
 
-  label,
-  label * {
+  .item input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
     cursor: pointer;
   }
 
-  label::after {
-    content: "";
-    display: inline-block;
-    width: 0;
-    height: 100%;
-    vertical-align: middle;
-  }
-
-  label span {
-    display: inline-block;
-    padding: 12px 8px;
-    font-size: 16px;
-    line-height: 1.4;
-    vertical-align: middle;
+  .item strong::before {
+    content: '\2713';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     text-align: center;
-    white-space: normal;
-    word-break: keep-all;
-    color: #666;
-  }
-
-  label span::before {
-    content: "\2713";
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    bottom: 50%;
-    left: 50%;
+    font-size: 48px;
+    line-height: 1;
+    color: rgba(66,99,196,.75);
     opacity: 0;
-    border-radius: 4px;
-    transition: opacity 0.25s ease-out;
-    font-size: 32px;
-    line-height: 1.4;
+    transform: translateY(-15%);
+    transition: transform .25s ease-out, opacity .1s linear;
   }
 
-  label span::after {
-    content: "";
-    position: absolute;
-    top: 1px;
-    right: 1px;
-    bottom: 1px;
-    left: 1px;
-    border: 1px dotted #999;
-    border-radius: 4px;
-  }
-
-  label input:checked + span {
-    background-color: #369;
-    color: #aaa;
-  }
-
-  label input:checked + span::before {
+  .item input:checked + strong::before {
     opacity: 1;
+    transform: translateY(0);
   }
 
-  label input:checked + span::after {
-    border-style: solid;
-    border-color: #369;
+  .item strong {
+    font-size: 16px;
+    font-weight: 400;
   }
-
-  label span strong {
-    position: relative;
-    display: block;
-    font-style: normal;
-  }
-
-  label span em {
-    position: relative;
-    display: block;
+  .item em {
+    font-size: 14px;
+    font-weight: 400;
     font-style: normal;
   }
 </style>
