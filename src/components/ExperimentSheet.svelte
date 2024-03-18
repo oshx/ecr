@@ -164,7 +164,7 @@
     cursor: pointer;
   }
 
-  .item strong::before {
+  .item input:checked + strong::before {
     content: '\2713';
     position: absolute;
     top: 0;
@@ -175,14 +175,6 @@
     font-size: 48px;
     line-height: 1;
     color: rgba(66,99,196,.75);
-    opacity: 0;
-    transform: translateY(-15%);
-    transition: transform .25s ease-out, opacity .1s linear;
-  }
-
-  .item input:checked + strong::before {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .item strong {
