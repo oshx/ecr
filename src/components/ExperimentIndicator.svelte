@@ -3,6 +3,7 @@
   export let progress = 0;
 
   $: completed = progress === total;
+  $: percent = Math.round(progress / total * 100);
 </script>
 
 {#if total}
@@ -12,8 +13,8 @@
         <button type="submit">결과 보기</button>
       {:else}
         <strong>
-          <i style={`width:${(progress / total) * 100}%`}></i>
-          <span>{Math.round((progress / total) * 100)}%</span>
+          <i style={`width:${percent}%`}></i>
+          <span>{percent}%</span>
           <em>({progress}/{total})</em>
         </strong>
       {/if}

@@ -1,18 +1,116 @@
 <script>
-  import {QuestionList, ResultList} from "../core/constants"
+  import { QuestionList, ResultList } from "../core/constants";
+
+  export let intro = false;
+
+  let block = !!intro;
+
+  function handleClickStart() {
+    block = false;
+  }
 </script>
 
-<dl>
-  <dt>성인애착유형 질문지에 대한 설명</dt>
-  <dd>
-    성인애착유형 질문지(ECR;Experiences in Close Relationships)를 통해 Brennan, Clark &
-    Shaver, 1998년에 애착유형과 분노표현 방식과의 관계를 알아보기 위해 실시한 논문에 사용된 질문지입니다.
-  </dd>
-  <dd>
-    총 {QuestionList.length}개 질문을 통해 검사를 하게 되며, {ResultList.length}개의 유형으로 결과가
-    분류된다.
-  </dd>
-</dl>
+<div class="container" class:fullscreen={intro} class:hide={!block}>
+  <div class="content">
+    {#if intro}
+      <h1>성인애착유형 검사</h1>
+    {/if}
+    <dl>
+      <dt>성인애착유형 질문지에 대한 설명</dt>
+      <dd>
+        성인애착유형 질문지(ECR;Experiences in Close Relationships)를 통해 Brennan, Clark &
+        Shaver, 1998년에 애착유형과 분노표현 방식과의 관계를 알아보기 위해 실시한 논문에 사용된 질문지입니다.
+      </dd>
+      <dd>
+        총 {QuestionList.length}개 질문을 통해 검사를 하게 되며, {ResultList.length}개의 유형으로
+        결과가
+        분류된다.
+      </dd>
+    </dl>
+    {#if intro}
+      <button on:click={handleClickStart}>검사시작</button>
+    {/if}
+  </div>
+</div>
 
 <style>
+  @keyframes fade-out {
+    0% {
+      z-index: 1;
+      opacity: 1;
+    }
+
+    99% {
+      z-index: 1;
+      opacity: 0;
+    }
+
+    100% {
+      z-index: 0;
+      opacity: 0;
+    }
+  }
+
+  .fullscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(0deg, #fff 0, rgba(255, 255, 255, .85) 100%);
+    font-size: 14px;
+    line-height: 1.4;
+    z-index: 1;
+  }
+
+  .hide {
+    animation: fade-out .75s 1 ease;
+    opacity: 0;
+    z-index: -1;
+  }
+
+  .container {
+    user-select: none;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 0;
+    font-size: 0;
+  }
+
+  .container::before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  .content {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 16px;
+    font-size: 20px;
+    line-height: 1.4;
+    white-space: normal;
+  }
+
+  h1, dl {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  dl {
+    text-align: left;
+  }
+
+  button {
+    display: inline-block;
+    margin: 48px auto 0;
+    border: 0 none;
+    border-bottom: 4px dashed #eee;
+    background: none transparent;
+    font-size: 36px;
+    line-height: 1.4;
+    cursor: pointer;
+  }
 </style>

@@ -6,16 +6,26 @@
 
   export let message = null;
 
+  let scrollTimer = 0;
+
   const dispatch = createEventDispatcher();
 
+  function handleNextCenter() {
+    const next = answerList.findIndex(value => !value);
+    if (!next) return;
+    return window.document.getElementById("track").scrollTo({
+      left: window.document.getElementById("_" + next).offsetLeft,
+      behavior: "smooth",
+    });
+  }
+
+  function handleScroll() {
+    clearTimeout(scrollTimer);
+    return scrollTimer = setTimeout(handleNextCenter, 500);
+  }
+
   async function handleUpdate() {
-    return window.document
-      .querySelector(
-        `#experiment-card${answerList.findIndex((value) => !value)}`
-      )
-      ?.scrollIntoView({
-        behavior: "smooth",
-      });
+    handleNextCenter();
   }
 
   const createChangeEventHandler = (index) => (changeEvent) => {
@@ -31,51 +41,75 @@
       {message}
     </h2>
   {:else}
-    {#each QuestionList as question, index}
-      <div
-        id={`experiment-card${index}`}
-        class="card"
-        class:card--completed={answerList[index]}
-      >
-        <h2 class="title">
-          <span class="title__prefix">{index + 1}/{QuestionList.length}</span>
-          <strong class="title__main">{question}</strong>
-        </h2>
-        <div class="content">
-          {#each Object.keys(ScoreLabelMap) as scoreKey}
-            <label class="item">
-              <input
-                type="radio"
-                name={index}
-                on:change|preventDefault={createChangeEventHandler(index)}
-                value={scoreKey}
-                checked={answerList[index] === scoreKey}
-              />
-              <strong>
-                {ScoreLabelMap[scoreKey]}
-              </strong>
-              <em>{scoreKey}점</em>
-            </label>
-          {/each}
+    <div id="track"
+         class="track"
+         on:scroll={handleScroll}>
+      {#each QuestionList as question, index}
+        <div
+          id={`_${index}`}
+          class="container">
+          <div class="card"
+               class:container--completed={answerList[index]}>
+            <h2 class="title">
+              <span class="title__prefix">{index + 1}
+                /{QuestionList.length}</span>
+              <strong class="title__main">{question}</strong>
+            </h2>
+            <div class="content">
+              {#each Object.keys(ScoreLabelMap) as scoreKey}
+                <label class="item">
+                  <input
+                    type="radio"
+                    name={index}
+                    on:change|preventDefault={createChangeEventHandler(index)}
+                    value={scoreKey}
+                    checked={answerList[index] === scoreKey}
+                  />
+                  <strong>
+                    {ScoreLabelMap[scoreKey]}
+                  </strong>
+                  <em>{scoreKey}점</em>
+                </label>
+              {/each}
+            </div>
+          </div>
         </div>
-      </div>
-    {/each}
+      {/each}
+    </div>
   {/if}
 </div>
 
 <style>
+  .track {
+    max-width: 100%;
+    overflow: auto;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 0;
+    line-height: 0;
+  }
+
+  .container {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+  }
+
+  .container.container--middle {
+    vertical-align: middle;
+  }
+
   .card {
-    display: block;
-    margin: 24px auto 0;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1), inset 0 0 4px #fff;
+    max-width: 960px;
+    margin: 0 auto;
+    white-space: normal;
+    line-height: 1.4;
+    font-size: 14px;
     color: #000;
   }
 
-  .card.card--completed {
-    box-shadow: inset 0 0 4px rgba(0,0,0,0.25), 0 0 128px inset rgba(0, 0, 0, 0.1);
-    color: rgba(0,0,0,.3);
+  h1 {
+    font-size: 24px;
   }
 
   .title {
@@ -84,8 +118,8 @@
     font-size: 18px;
     line-height: 1.4;
     font-weight: 400;
-    border-radius: 8px 8px 0 0;
     color: inherit;
+    text-align: left;
     background-image: linear-gradient(90deg, transparent, rgba(33, 66, 99, 0.1));
   }
 
@@ -100,11 +134,10 @@
     font-size: 14px;
     font-weight: 400;
     padding: 4px 8px;
-    border-radius: 4px 4px 0 0;
     text-align: right;
-    background-color: rgba(33,66,99,.1);
-    border-radius: 0 8px 0 8px;
+    background-color: rgba(33, 66, 99, .1);
   }
+
   .title__main {
     display: block;
     padding: 16px;
@@ -117,7 +150,7 @@
     content: "";
     display: inline-block;
     margin: 0 4px;
-    border: 4px solid rgba(0,0,0,.15);
+    border: 4px solid rgba(0, 0, 0, .15);
     width: 4px;
     height: 4px;
   }
@@ -135,23 +168,17 @@
   }
 
   .content {
-    display: flex;
-    flex-direction: row;
-    justify-content: stretch;
+    padding: 16px;
   }
 
   .item {
     position: relative;
-    display: flex;
-    margin: 4px;
-    padding: 8px 4px;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
+    max-width: 480px;
+    display: block;
+    margin: 0 auto;
+    padding: 16px;
     word-break: keep-all;
-    justify-content: center;
-    flex-grow: 1;
-    flex-shrink: 1;
+    text-align: left;
   }
 
   .item input {
@@ -165,25 +192,66 @@
   }
 
   .item input:checked + strong::before {
+    color: #369;
+  }
+
+  .item input:checked + strong::after,
+  .item input:checked ~ em::before {
+    opacity: 1;
+  }
+
+  .item strong {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 8px;
+    margin-right: 8px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .item strong::before {
     content: '\2713';
+    margin-right: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 24px;
+    line-height: 1;
+    color: #eee;
+  }
+
+  .item strong::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 4px dashed rgba(33, 66, 99, .25);
+    opacity: 0;
+    transition: opacity .25s ease;
+  }
+
+  .item em {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .item em::before {
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    text-align: center;
-    font-size: 48px;
-    line-height: 1;
-    color: rgba(66,99,196,.75);
-  }
-
-  .item strong {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  .item em {
-    font-size: 14px;
-    font-weight: 400;
-    font-style: normal;
+    margin: -4px -8px;
+    border: 4px dashed rgba(33, 66, 99, .25);
+    border-radius: 100%;
+    opacity: 0;
+    transition: opacity .25s ease;
   }
 </style>
