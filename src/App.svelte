@@ -11,6 +11,7 @@
   padding: 0;
   font-size: 16px;
   line-height: 1.4;
+  min-height: 100%;
 }
 
 :global(div) {

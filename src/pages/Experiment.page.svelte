@@ -41,3 +41,10 @@
   />
   <Message {message} on:resolve={resolveMessage} />
 </form>
+
+<style>
+  form {
+    margin: 0;
+    padding: 0;
+  }
+</style>

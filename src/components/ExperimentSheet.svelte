@@ -35,7 +35,7 @@
   beforeUpdate(handleUpdate);
 </script>
 
-<div>
+<div class="root">
   {#if message}
     <h2>
       {message}
@@ -80,8 +80,18 @@
 </div>
 
 <style>
+
+  .root {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
   .track {
     max-width: 100%;
+    min-height: 100%;
     overflow: auto;
     white-space: nowrap;
     text-align: center;
@@ -106,10 +116,6 @@
     line-height: 1.4;
     font-size: 14px;
     color: #000;
-  }
-
-  h1 {
-    font-size: 24px;
   }
 
   .title {

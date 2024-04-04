@@ -16,15 +16,14 @@
       <h1>성인애착유형 검사</h1>
     {/if}
     <dl>
-      <dt>성인애착유형 질문지에 대한 설명</dt>
+      <dt>성인애착유형 질문지란?</dt>
       <dd>
-        성인애착유형 질문지(ECR;Experiences in Close Relationships)를 통해 Brennan, Clark &
+        성인애착유형 질문지(ECR;Experiences in Close Relationships)를 통해 Brennan, Clark &amp;
         Shaver, 1998년에 애착유형과 분노표현 방식과의 관계를 알아보기 위해 실시한 논문에 사용된 질문지입니다.
       </dd>
       <dd>
         총 {QuestionList.length}개 질문을 통해 검사를 하게 되며, {ResultList.length}개의 유형으로
-        결과가
-        분류된다.
+        결과가 분류됩니다.
       </dd>
     </dl>
     {#if intro}
@@ -84,6 +83,19 @@
     vertical-align: middle;
   }
 
+  h1 {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -1px;
+    background-color: rgba(0,0,0,.25);
+
+  }
+
   .content {
     display: inline-block;
     vertical-align: middle;
@@ -101,6 +113,25 @@
 
   dl {
     text-align: left;
+    word-break: keep-all;
+    letter-spacing: -1px;
+    line-height: 1.4;
+  }
+
+  dt {
+    margin: 0;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(0,0,0,.5);
+  }
+
+  dd {
+    margin: 0;
+    padding: 8px 24px;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(0,0,0,.85);
   }
 
   button {
@@ -111,6 +142,7 @@
     background: none transparent;
     font-size: 36px;
     line-height: 1.4;
+    letter-spacing: -1px;
     cursor: pointer;
   }
 </style>
