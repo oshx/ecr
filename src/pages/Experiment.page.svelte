@@ -4,7 +4,7 @@
   import { href, push } from "../router/helper";
   import { PATH_RESULT } from "../router/routes.config";
   import ExperimentSheet from "../components/ExperimentSheet.svelte";
-  import ExperimentIndicator from "../components/ExperimentIndicator.svelte";
+  import ProgressManager from "../components/ProgressManager.svelte";
   import Message from "../components/Message.svelte";
   import InformationSheet from "../components/InformationSheet.svelte";
 
@@ -17,6 +17,10 @@
 
   function handleSelect(customEvent) {
     answerList[customEvent.detail[0]] = customEvent.detail[1];
+  }
+
+  function filterNotZero(value) {
+    return value !== 0;
   }
 
   function handleSubmit() {
@@ -34,11 +38,11 @@
 </svelte:head>
 <InformationSheet intro={true} />
 <form on:submit|preventDefault={handleSubmit}>
-  <ExperimentSheet {answerList} on:select={handleSelect} />
-  <ExperimentIndicator
-    progress={answerList.filter((answer) => answer !== 0).length}
+  <ProgressManager
+    progress={answerList.filter(filterNotZero).length}
     total={answerList.length}
   />
+  <ExperimentSheet {answerList} on:select={handleSelect} />
   <Message {message} on:resolve={resolveMessage} />
 </form>
 

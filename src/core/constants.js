@@ -10,6 +10,8 @@ export const ScoreLabelMap = {
   5: "매우 그렇다",
 };
 
+export const ReverseScoreList = Object.keys(ScoreLabelMap).reverse();
+
 export const QuestionList = [
   "내가 얼마나 호감을 가지고 있는지 상대방에게 보이고 싶지 않다",
   "나는 버림을 받는 것에 대해 걱정하는 편이다",
@@ -75,6 +77,8 @@ export const ResultList = [
 export const AVOIDANCE_THRESHOLD = 42;
 
 export const ANXIETY_THRESHOLD = 47;
+
+export const STEP_BASE = 6;
 
 export const STEP_CHUNK = 10;
 

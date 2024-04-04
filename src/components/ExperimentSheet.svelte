@@ -10,18 +10,24 @@
 
   const dispatch = createEventDispatcher();
 
+  function filterFalsey(value) {
+    return !value;
+  }
+
   function handleNextCenter() {
-    const next = answerList.findIndex(value => !value);
-    if (!next) return;
+    const next = window.document.getElementById(
+      "_" + answerList.findIndex(filterFalsey)
+    );
+    if (next === null) return;
     return window.document.getElementById("track").scrollTo({
-      left: window.document.getElementById("_" + next).offsetLeft,
+      left: next.offsetLeft,
       behavior: "smooth",
     });
   }
 
   function handleScroll() {
     clearTimeout(scrollTimer);
-    return scrollTimer = setTimeout(handleNextCenter, 500);
+    return (scrollTimer = setTimeout(handleNextCenter, 1000));
   }
 
   async function handleUpdate() {
@@ -41,18 +47,18 @@
       {message}
     </h2>
   {:else}
-    <div id="track"
-         class="track"
-         on:scroll={handleScroll}>
+    <div id="track" class="track" on:scroll={handleScroll}>
       {#each QuestionList as question, index}
         <div
           id={`_${index}`}
-          class="container">
-          <div class="card"
-               class:container--completed={answerList[index]}>
+          class="container"
+          class:container--completed={answerList[index]}
+        >
+          <div class="card">
             <h2 class="title">
-              <span class="title__prefix">{index + 1}
-                /{QuestionList.length}</span>
+              <span class="title__prefix">
+                <strong>{index + 1}</strong>/{QuestionList.length}
+              </span>
               <strong class="title__main">{question}</strong>
             </h2>
             <div class="content">
@@ -80,13 +86,8 @@
 </div>
 
 <style>
-
   .root {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    position: relative;
   }
 
   .track {
@@ -103,10 +104,12 @@
     display: inline-block;
     width: 100%;
     vertical-align: top;
+    background-color: #fff;
+    transition: background-color 0.5s ease-out;
   }
 
-  .container.container--middle {
-    vertical-align: middle;
+  .container.container--completed {
+    background-color: #ddd;
   }
 
   .card {
@@ -121,12 +124,12 @@
   .title {
     display: block;
     margin: 0 auto;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     font-size: 18px;
     line-height: 1.4;
     font-weight: 400;
     color: inherit;
     text-align: left;
-    background-image: linear-gradient(90deg, transparent, rgba(33, 66, 99, 0.1));
   }
 
   .title::after {
@@ -140,8 +143,16 @@
     font-size: 14px;
     font-weight: 400;
     padding: 4px 8px;
+    margin: 4px;
     text-align: right;
-    background-color: rgba(33, 66, 99, .1);
+    background-color: rgba(33, 66, 99, 0.1);
+    border-radius: 8px;
+    color: #999;
+    user-select: none;
+  }
+
+  .title__prefix strong {
+    color: #000;
   }
 
   .title__main {
@@ -151,26 +162,12 @@
     word-break: keep-all;
   }
 
-  .title__main::before,
-  .title__main::after {
-    content: "";
-    display: inline-block;
-    margin: 0 4px;
-    border: 4px solid rgba(0, 0, 0, .15);
-    width: 4px;
-    height: 4px;
-  }
-
   .title__main::before {
-    border-right: 0;
-    border-bottom: 0;
-    vertical-align: text-top;
+    content: "\201c";
   }
 
   .title__main::after {
-    border-top: 0;
-    border-left: 0;
-    vertical-align: text-bottom;
+    content: "\201d";
   }
 
   .content {
@@ -185,6 +182,7 @@
     padding: 16px;
     word-break: keep-all;
     text-align: left;
+    cursor: pointer;
   }
 
   .item input {
@@ -194,7 +192,6 @@
     bottom: 0;
     left: 0;
     opacity: 0;
-    cursor: pointer;
   }
 
   .item input:checked + strong::before {
@@ -209,7 +206,7 @@
   .item strong {
     position: relative;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: baseline;
     padding-right: 8px;
     margin-right: 8px;
     font-size: 16px;
@@ -217,47 +214,47 @@
   }
 
   .item strong::before {
-    content: '\2713';
+    content: "\2713";
     margin-right: 8px;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: baseline;
     text-align: center;
     font-size: 24px;
     line-height: 1;
-    color: #eee;
+    color: #ccc;
   }
 
   .item strong::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    border-bottom: 4px dashed rgba(33, 66, 99, .25);
+    border-bottom: 4px dashed rgba(33, 66, 99, 0.25);
     opacity: 0;
-    transition: opacity .25s ease;
+    transition: opacity 0.25s ease;
   }
 
   .item em {
     position: relative;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: baseline;
     font-size: 14px;
     font-weight: 400;
     font-style: normal;
   }
 
   .item em::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     margin: -4px -8px;
-    border: 4px dashed rgba(33, 66, 99, .25);
+    border: 4px dashed rgba(33, 66, 99, 0.25);
     border-radius: 100%;
     opacity: 0;
-    transition: opacity .25s ease;
+    transition: opacity 0.25s ease;
   }
 </style>

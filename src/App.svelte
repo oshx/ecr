@@ -14,6 +14,10 @@
   min-height: 100%;
 }
 
+:global(body) {
+  background-color: #eee;
+}
+
 :global(div) {
   margin: 0;
   padding: 0;

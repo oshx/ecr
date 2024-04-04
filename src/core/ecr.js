@@ -3,9 +3,11 @@ import {
   ANXIETY_THRESHOLD,
   AVOIDANCE_THRESHOLD,
   BackwardScoreList,
+  QuestionList,
   ResultList,
-  ScoreLabelMap,
+  ReverseScoreList,
   SEPARATOR,
+  STEP_BASE,
   STEP_CHUNK,
 } from "./constants";
 
@@ -22,7 +24,18 @@ const convertAnswerToChunk = (answerList, unit) =>
     );
 
 const convertChunkToParam = (chunkList) =>
-  chunkList.map((chunk) => encode(parseInt(chunk, 6))).join(SEPARATOR);
+  chunkList.map((chunk) => encode(parseInt(chunk, STEP_BASE))).join(SEPARATOR);
+
+const reduceScoreList = (result, current, index) => {
+  const target = index % 2 ? 0 : 1;
+  const score = Number(
+    BackwardScoreList.some((item) => item === index + 1)
+      ? ReverseScoreList[Number(current) - 1]
+      : current
+  );
+  result[target] = result[target] + score;
+  return result;
+};
 
 export const convertAnswerToParam = (answerList, unit = STEP_CHUNK) => {
   console.debug("convertAnswerToParam\n", answerList);
@@ -35,35 +48,26 @@ export const convertAnswerToParam = (answerList, unit = STEP_CHUNK) => {
   return convertChunkToParam(convertAnswerToChunk(answerList, unit));
 };
 
-export const convertParamToScore = (param, unit = STEP_CHUNK) => {
+export const convertParamToScore = (param) => {
   if (typeof param !== "string") {
-    throw new TypeError("결과에 오류가 있습니다.");
+    throw new TypeError("점수를 보여줄 결과가 없습니다.");
   }
-  return param
+  const scoreList = param
     .split(SEPARATOR)
-    .map((chunk) => decode(chunk).toString(6))
+    .map((chunk) => decode(chunk).toString(STEP_BASE))
     .join("")
     .split("");
+  if (
+    scoreList.some((value) => value === 0) ||
+    scoreList.length !== QuestionList.length
+  ) {
+    throw new Error("답변 수가 일치하지 않습니다.");
+  }
+  return scoreList;
 };
 
 export const convertScoreToResult = (scoreList) => {
-  const reverseScoreList = Object.keys(ScoreLabelMap).reverse();
-  const [avoidance, anxiety] = scoreList.reduce(
-    (result, current, index) => {
-      const target = index % 2 ? 0 : 1;
-      if (BackwardScoreList.some((item) => item === index + 1)) {
-        console.debug("reverse!!!", index);
-      }
-      const score = Number(
-        BackwardScoreList.some((item) => item === index + 1)
-          ? reverseScoreList[Number(current) - 1]
-          : current
-      );
-      result[target] = result[target] + score;
-      return result;
-    },
-    [0, 0]
-  );
+  const [avoidance, anxiety] = scoreList.reduce(reduceScoreList, [0, 0]);
   const [case1, case2, case3, case4] = ResultList;
   if (avoidance < AVOIDANCE_THRESHOLD) {
     if (anxiety < ANXIETY_THRESHOLD) {

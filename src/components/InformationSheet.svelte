@@ -13,7 +13,7 @@
 <div class="container" class:fullscreen={intro} class:hide={!block}>
   <div class="content">
     {#if intro}
-      <h1>성인애착유형 검사</h1>
+      <h1 class="title">성인애착유형 검사</h1>
     {/if}
     <dl>
       <dt>성인애착유형 질문지란?</dt>
@@ -59,7 +59,7 @@
     background-image: linear-gradient(0deg, #fff 0, rgba(255, 255, 255, .85) 100%);
     font-size: 14px;
     line-height: 1.4;
-    z-index: 1;
+    z-index: 100;
   }
 
   .hide {
@@ -83,7 +83,7 @@
     vertical-align: middle;
   }
 
-  h1 {
+  .title {
     display: inline-block;
     padding: 8px 16px;
     border-radius: 8px;
@@ -93,7 +93,7 @@
     line-height: 1.4;
     letter-spacing: -1px;
     background-color: rgba(0,0,0,.25);
-
+    text-shadow: 0 0 3px rgba(255,200,50,.5), 0 0 5px rgba(0,0,0,.9);
   }
 
   .content {
@@ -105,7 +105,7 @@
     white-space: normal;
   }
 
-  h1, dl {
+  .title, dl {
     max-width: 960px;
     margin-left: auto;
     margin-right: auto;
@@ -138,11 +138,13 @@
     display: inline-block;
     margin: 48px auto 0;
     border: 0 none;
-    border-bottom: 4px dashed #eee;
+    border-bottom: 4px dashed rgba(255,192,0,.5);
     background: none transparent;
     font-size: 36px;
+    font-weight: 700;
     line-height: 1.4;
     letter-spacing: -1px;
+    color: rgba(0,0,0,.75);
     cursor: pointer;
   }
 </style>
