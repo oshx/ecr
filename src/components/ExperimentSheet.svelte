@@ -3,20 +3,21 @@
   import { QuestionList, ScoreLabelMap } from "../core/constants";
 
   export let answerList = [];
-
+  export let readonly = false;
+  export let vertical = false;
   export let message = null;
 
   let scrollTimer = 0;
 
   const dispatch = createEventDispatcher();
 
-  function filterFalsey(value) {
+  function filterFalsy(value) {
     return !value;
   }
 
   function handleNextCenter() {
     const next = window.document.getElementById(
-      "_" + answerList.findIndex(filterFalsey)
+      "_" + answerList.findIndex(filterFalsy),
     );
     if (next === null) return;
     return window.document.getElementById("track").scrollTo({
@@ -26,15 +27,18 @@
   }
 
   function handleScroll() {
+    if (vertical) return;
     clearTimeout(scrollTimer);
     return (scrollTimer = setTimeout(handleNextCenter, 1000));
   }
 
   async function handleUpdate() {
+    if (vertical) return;
     handleNextCenter();
   }
 
   const createChangeEventHandler = (index) => (changeEvent) => {
+    if (readonly) return;
     dispatch("select", [index, changeEvent.currentTarget.value]);
   };
 
@@ -47,7 +51,11 @@
       {message}
     </h2>
   {:else}
-    <div id="track" class="track" on:scroll={handleScroll}>
+    <div id="track"
+         class="track"
+         class:track--vertical={vertical}
+         class:track--readonly={readonly}
+         on:scroll={handleScroll}>
       {#each QuestionList as question, index}
         <div
           id={`_${index}`}
@@ -63,19 +71,22 @@
             </h2>
             <div class="content">
               {#each Object.keys(ScoreLabelMap) as scoreKey}
-                <label class="item">
-                  <input
-                    type="radio"
-                    name={index}
-                    on:change|preventDefault={createChangeEventHandler(index)}
-                    value={scoreKey}
-                    checked={answerList[index] === scoreKey}
-                  />
-                  <strong>
-                    {ScoreLabelMap[scoreKey]}
-                  </strong>
-                  <em>{scoreKey}점</em>
-                </label>
+                {#if !readonly || answerList[index] === scoreKey}
+                  <label class="item">
+                    <input
+                      type="radio"
+                      name={index}
+                      on:change|preventDefault={createChangeEventHandler(index)}
+                      value={scoreKey}
+                      {readonly}
+                      checked={answerList[index] === scoreKey}
+                    />
+                    <strong>
+                      {ScoreLabelMap[scoreKey]}
+                    </strong>
+                    <em>{scoreKey}점</em>
+                  </label>
+                {/if}
               {/each}
             </div>
           </div>
@@ -100,6 +111,14 @@
     line-height: 0;
   }
 
+  .track.track--vertical {
+    white-space: normal;
+  }
+
+  .track.track--readonly {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   .container {
     display: inline-block;
     width: 100%;
@@ -110,6 +129,16 @@
 
   .container.container--completed {
     background-color: #ddd;
+  }
+
+  .track.track--vertical .container {
+    display: block;
+    width: auto;
+    margin: 24px auto 0;
+  }
+
+  .track.track--readonly .container.container--completed {
+    background-color: #eee;
   }
 
   .card {
@@ -185,6 +214,10 @@
     cursor: pointer;
   }
 
+  .track.track--readonly .item {
+    cursor: default;
+  }
+
   .item input {
     position: absolute;
     top: 0;
@@ -192,6 +225,11 @@
     bottom: 0;
     left: 0;
     opacity: 0;
+  }
+
+  .item input[readonly] {
+    -webkit-tap-highlight-color: transparent;
+    cursor: default;
   }
 
   .item input:checked + strong::before {
