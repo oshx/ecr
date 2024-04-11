@@ -36,6 +36,7 @@
     position: relative;
     margin: 0;
     padding: 32px 0 0;
+    user-select: none;
   }
 
   .indicator {

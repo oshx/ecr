@@ -205,7 +205,6 @@
 
   .item {
     position: relative;
-    max-width: 480px;
     display: block;
     margin: 0 auto;
     padding: 16px;
