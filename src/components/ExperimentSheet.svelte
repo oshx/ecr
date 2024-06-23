@@ -17,7 +17,7 @@
 
   function handleNextCenter() {
     const next = window.document.getElementById(
-      "_" + answerList.findIndex(filterFalsy),
+      "_" + answerList.findIndex(filterFalsy)
     );
     if (next === null) return;
     return window.document.getElementById("track").scrollTo({
@@ -51,11 +51,13 @@
       {message}
     </h2>
   {:else}
-    <div id="track"
-         class="track"
-         class:track--vertical={vertical}
-         class:track--readonly={readonly}
-         on:scroll={handleScroll}>
+    <div
+      id="track"
+      class="track"
+      class:track--vertical={vertical}
+      class:track--readonly={readonly}
+      on:scroll={handleScroll}
+    >
       {#each QuestionList as question, index}
         <div
           id={`_${index}`}

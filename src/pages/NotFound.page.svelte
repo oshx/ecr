@@ -1,6 +1,6 @@
 <script>
-  import {href, link} from "../router/helper";
-  import {PATH_EXPERIMENT} from "../router/routes.config";
+  import { href, link } from "../router/helper";
+  import { PATH_EXPERIMENT } from "../router/routes.config";
 </script>
 
 <h1>잘못된 경로로 왔습니다!</h1>

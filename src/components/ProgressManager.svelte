@@ -86,10 +86,16 @@
     background-color: #fff;
     font-style: normal;
     font-weight: 400;
-    background-image: linear-gradient(80deg, transparent 0, transparent 10%, rgba(0,0,0,.1) 20%, transparent 80%);
+    background-image: linear-gradient(
+      80deg,
+      transparent 0,
+      transparent 10%,
+      rgba(0, 0, 0, 0.1) 20%,
+      transparent 80%
+    );
     background-size: 320px 100%;
     animation: loop-background 1s infinite linear;
-    box-shadow: 0 0 1px rgba(0,0,0,.15);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
     transition: width 0.25s ease-out;
   }
 

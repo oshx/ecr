@@ -18,12 +18,13 @@
     <dl>
       <dt>성인애착유형 질문지란?</dt>
       <dd>
-        성인애착유형 질문지(ECR;Experiences in Close Relationships)를 통해 Brennan, Clark &amp;
-        Shaver, 1998년에 애착유형과 분노표현 방식과의 관계를 알아보기 위해 실시한 논문에 사용된 질문지입니다.
+        성인애착유형 질문지(ECR;Experiences in Close Relationships)를 통해
+        Brennan, Clark &amp; Shaver, 1998년에 애착유형과 분노표현 방식과의
+        관계를 알아보기 위해 실시한 논문에 사용된 질문지입니다.
       </dd>
       <dd>
-        총 {QuestionList.length}개 질문을 통해 검사를 하게 되며, {ResultList.length}개의 유형으로
-        결과가 분류됩니다.
+        총 {QuestionList.length}개 질문을 통해 검사를 하게 되며, {ResultList.length}개의
+        유형으로 결과가 분류됩니다.
       </dd>
     </dl>
     {#if intro}
@@ -56,14 +57,18 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(0deg, #fff 0, rgba(255, 255, 255, .85) 100%);
+    background-image: linear-gradient(
+      0deg,
+      #fff 0,
+      rgba(255, 255, 255, 0.85) 100%
+    );
     font-size: 14px;
     line-height: 1.4;
     z-index: 100;
   }
 
   .hide {
-    animation: fade-out .75s 1 ease;
+    animation: fade-out 0.75s 1 ease;
     opacity: 0;
     z-index: -1;
   }
@@ -77,7 +82,7 @@
   }
 
   .container::before {
-    content: '';
+    content: "";
     display: inline-block;
     height: 100%;
     vertical-align: middle;
@@ -92,8 +97,10 @@
     font-weight: 700;
     line-height: 1.4;
     letter-spacing: -1px;
-    background-color: rgba(0,0,0,.25);
-    text-shadow: 0 0 3px rgba(255,200,50,.5), 0 0 5px rgba(0,0,0,.9);
+    background-color: rgba(0, 0, 0, 0.25);
+    text-shadow:
+      0 0 3px rgba(255, 200, 50, 0.5),
+      0 0 5px rgba(0, 0, 0, 0.9);
   }
 
   .content {
@@ -105,7 +112,8 @@
     white-space: normal;
   }
 
-  .title, dl {
+  .title,
+  dl {
     max-width: 960px;
     margin-left: auto;
     margin-right: auto;
@@ -123,7 +131,7 @@
     padding: 8px 16px;
     font-size: 16px;
     font-weight: 700;
-    color: rgba(0,0,0,.5);
+    color: rgba(0, 0, 0, 0.5);
   }
 
   dd {
@@ -131,20 +139,20 @@
     padding: 8px 24px;
     font-size: 16px;
     font-weight: 400;
-    color: rgba(0,0,0,.85);
+    color: rgba(0, 0, 0, 0.85);
   }
 
   button {
     display: inline-block;
     margin: 48px auto 0;
     border: 0 none;
-    border-bottom: 4px dashed rgba(255,192,0,.5);
+    border-bottom: 4px dashed rgba(255, 192, 0, 0.5);
     background: none transparent;
     font-size: 36px;
     font-weight: 700;
     line-height: 1.4;
     letter-spacing: -1px;
-    color: rgba(0,0,0,.75);
+    color: rgba(0, 0, 0, 0.75);
     cursor: pointer;
   }
 </style>

@@ -46,8 +46,15 @@
     <p>{result.content}</p>
   </main>
   <div class="action">
-    <a class="action__trigger action__trigger--retry" href={href(PATH_EXPERIMENT)} use:link>다시 검사하기</a>
-    <button class="action__trigger action__trigger--share" on:click={handleShare}>공유하기</button>
+    <a
+      class="action__trigger action__trigger--retry"
+      href={href(PATH_EXPERIMENT)}
+      use:link>다시 검사하기</a
+    >
+    <button
+      class="action__trigger action__trigger--share"
+      on:click={handleShare}>공유하기</button
+    >
   </div>
   <div class="answer">
     <h2>응답</h2>
