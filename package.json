@@ -2,11 +2,11 @@
   "name": "ecr",
   "version": "1.0.0",
   "description": "성인애착유형 검사지",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
     "bust": "rimraf ./.parcel-cache",
-    "test": "parcel ./src/index.html --https"
+    "test": "parcel ./src/index.html --https",
+    "build": "parcel build ./src/index.html"
   },
   "keywords": [
     "svelte",
@@ -23,13 +23,13 @@
     "parcel-transformer-svelte3-plus": "^0.2.10",
     "prettier": "^3.2.5",
     "process": "^0.11.10",
-    "rimraf": "^5.0.5",
-    "svelte": "^3.59.2"
+    "rimraf": "^5.0.5"
   },
   "dependencies": {
     "base62": "^2.0.1",
     "path-to-regexp": "^6.2.1",
     "query-string": "^9.0.0",
-    "svelte-spa-router": "^4.0.1"
+    "svelte-spa-router": "^4.0.1",
+    "svelte": "^3.59.2"
   }
 }
