@@ -16,6 +16,13 @@
     "name": "오승환",
     "email": "oshxios@gmail.com"
   },
+  "targets": {
+    "default": {
+      "distDir": "public",
+      "publicUrl": ".",
+      "sourceMap": false
+    }
+  },
   "license": "UNLICENSED",
   "devDependencies": {
     "editorconfig": "^2.0.0",
