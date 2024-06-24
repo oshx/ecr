@@ -1,5 +1,10 @@
+[![GitHub Actions for Pages Deployment](https://github.com/oshx/ecr/actions/workflows/deploy.yml/badge.svg)](https://github.com/oshx/ecr/actions/workflows/deploy.yml)
+
 # ECR 검사지
 성인애착유형 검사지
+
+## 검사하러 가기
+[https://oshx.github.io/ecr/](https://oshx.github.io/ecr/)
 
 ## 만든 이유
 아주 간단한 시험을 통해, 애착 유형을 확인하는 방법이다.
