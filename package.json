@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "성인애착유형 검사지",
   "scripts": {
+    "build": "parcel build ./src/index.html --log-level info",
     "dev": "parcel ./src/index.html",
     "bust": "rimraf ./.parcel-cache",
-    "test": "parcel ./src/index.html --https",
-    "build": "parcel build ./src/index.html --log-level info"
+    "test": "parcel ./src/index.html --https"
   },
   "keywords": [
     "svelte",
