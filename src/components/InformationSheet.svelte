@@ -2,11 +2,12 @@
   import { QuestionList, ResultList } from "../core/constants";
 
   export let intro = false;
-
-  let block = !!intro;
+  export let block = !!intro;
 
   function handleClickStart() {
-    block = false;
+    if (intro) {
+      block = false;
+    }
   }
 </script>
 
@@ -46,34 +47,14 @@
     }
 
     100% {
-      z-index: 0;
+      z-index: -1;
       opacity: 0;
     }
   }
 
-  .fullscreen {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(
-      0deg,
-      #fff 0,
-      rgba(255, 255, 255, 0.85) 100%
-    );
-    font-size: 14px;
-    line-height: 1.4;
-    z-index: 100;
-  }
-
-  .hide {
-    animation: fade-out 0.75s 1 ease;
-    opacity: 0;
-    z-index: -1;
-  }
-
   .container {
+    margin: 24px auto 0;
+    background-color: #ddd;
     user-select: none;
     text-align: center;
     white-space: nowrap;
@@ -88,6 +69,30 @@
     vertical-align: middle;
   }
 
+  .container.fullscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    background-image: linear-gradient(
+      0deg,
+      #fff 0,
+      rgba(255, 255, 255, 0.85) 100%
+    );
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 1.4;
+    z-index: 100;
+  }
+
+  .container.hide {
+    animation: fade-out 0.75s 1 ease;
+    opacity: 0;
+    z-index: -1;
+  }
+
   .title {
     display: inline-block;
     padding: 8px 16px;
@@ -98,9 +103,8 @@
     line-height: 1.4;
     letter-spacing: -1px;
     background-color: rgba(0, 0, 0, 0.25);
-    text-shadow:
-      0 0 3px rgba(255, 200, 50, 0.5),
-      0 0 5px rgba(0, 0, 0, 0.9);
+    text-shadow: 0 0 3px rgba(255, 200, 50, 0.5),
+    0 0 5px rgba(0, 0, 0, 0.9);
   }
 
   .content {
@@ -154,5 +158,10 @@
     letter-spacing: -1px;
     color: rgba(0, 0, 0, 0.75);
     cursor: pointer;
+  }
+
+  .hide button {
+    cursor: default;
+    user-select: none;
   }
 </style>

@@ -1,9 +1,11 @@
 <script>
   import routes from "./router/routes.config";
   import Router from "svelte-spa-router";
+  import Credit from "./components/Credit.svelte";
 </script>
 
 <Router {routes} />
+<Credit />
 
 <style>
   :global(html, body) {

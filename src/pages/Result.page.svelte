@@ -5,6 +5,8 @@
   import ExperimentSheet from "../components/ExperimentSheet.svelte";
   import { PATH_EXPERIMENT } from "../router/routes.config";
   import { href, link } from "../router/helper";
+  import InformationSheet from "../components/InformationSheet.svelte";
+  import Credit from "../components/Credit.svelte";
 
   export let params;
 
@@ -38,7 +40,7 @@
       window.navigator.clipboard.writeText(window.location.href);
       alert("주소가 복사되었습니다.");
     } catch (copyError) {
-      alert("복사할 수 없습니다. \n오류가 발생했습니다.");
+      alert("공유할 수 없습니다.\n 주소를 복사할 수도 없습니다. \n오류가 발생했습니다.");
       console.error(copyError);
     }
   }
@@ -56,6 +58,10 @@
 
 <svelte:head>
   <title>{title}</title>
+  <meta property="og:title" content={title} />
+  {#if result.content}
+    <meta property="og:description" content={result.content} />
+  {/if}
 </svelte:head>
 
 {#if error === null && result.title && result.content}
@@ -75,30 +81,32 @@
       </button
       >
     </div>
-    <div class="answer">
-      <h2>응답했던 항목 다시보기</h2>
-      <div
-        class={"answer__review answer__review--unfold " + (unfoldFlag ? "" : "answer__review--show")}>
-        <button class="answer__review-trigger" on:click={unfoldAnswer}>
-          펼치기 +
-        </button>
-      </div>
-      <div
-        class={"answer__review answer__review--fold " + (unfoldFlag ? "answer__review--show" : "")}>
-        <button class="answer__review-trigger" on:click={foldAnswer}>
-          접기 -
-        </button>
-        <ExperimentSheet answerList={scoreList} readonly={true}
-                         vertical={true} />
-      </div>
-    </div>
   </main>
+  <InformationSheet block={true} />
+  <div class="answer">
+    <h2>응답했던 항목 다시보기</h2>
+    <div
+      class={"answer__review answer__review--unfold " + (unfoldFlag ? "" : "answer__review--show")}>
+      <button class="answer__review-trigger" on:click={unfoldAnswer}>
+        펼치기 +
+      </button>
+    </div>
+    <div
+      class={"answer__review answer__review--fold " + (unfoldFlag ? "answer__review--show" : "")}>
+      <button class="answer__review-trigger" on:click={foldAnswer}>
+        접기 -
+      </button>
+      <ExperimentSheet answerList={scoreList} readonly={true}
+                       vertical={true} />
+    </div>
+  </div>
 {:else}
   {error?.message}
 {/if}
 
 <style>
-  .result {
+  .result,
+  .answer {
     max-width: 960px;
     margin: 24px auto 0;
     padding: 8px 16px;
@@ -128,16 +136,6 @@
     color: #999;
   }
 
-  .result h2 {
-    margin: 48px auto 0;
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-    color: #666;
-    text-align: left;
-  }
-
   .result p {
     font-size: 24px;
     line-height: 1.8;
@@ -150,6 +148,16 @@
   .action {
     overflow: hidden;
     text-align: center;
+  }
+
+  .answer h2 {
+    margin: 48px auto 0;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    color: #666;
+    text-align: left;
   }
 
   .answer__review {
@@ -203,14 +211,15 @@
       font-size: 24px;
     }
 
-    .result p {
+    .result p,
+    .answer h2 {
       font-size: 18px;
     }
 
     .result .action__trigger {
       display: block;
       width: 100%;
-      max-width: 160px;
+      max-width: 240px;
       margin: 16px auto 0;
       font-size: 18px;
     }
