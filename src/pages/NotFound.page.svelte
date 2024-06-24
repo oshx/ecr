@@ -1,6 +1,8 @@
 <script>
   import { href, link } from "../router/helper";
   import { PATH_EXPERIMENT } from "../router/routes.config";
+
+  const startPath = href(PATH_EXPERIMENT);
 </script>
 
 <h1>잘못된 경로로 왔습니다!</h1>
@@ -8,6 +10,6 @@
 <p>아래 경로로 이동할 수 있습니다.</p>
 <ul>
   <li>
-    <a href={href(PATH_EXPERIMENT)} use:link>검사 시작</a>
+    <a href={startPath} use:link>검사 시작</a>
   </li>
 </ul>

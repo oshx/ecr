@@ -102,8 +102,8 @@
   span {
     position: relative;
     font-style: normal;
-    color: rgba(255, 255, 255, 0.75);
-    text-shadow: 0 0 3px #000;
+    color: rgba(0,0,0, 0.5);
+    text-shadow: 0 0 1px #fff;
   }
 
   button {
