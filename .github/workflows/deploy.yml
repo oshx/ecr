@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v4
-      - run: echo "🎉 Event [${{ github.event_name }}] \n🔎 Repository [${{ github.repository }}] \n🐧 OS [${{ runner.os }}] \n⭐ Branch[${{ github.ref }}]"
+      - run: echo "🎉 Event [${{ github.event_name }}] | 🔎 Repository [${{ github.repository }}] | 🐧 OS [${{ runner.os }}] | ⭐ Branch[${{ github.ref }}]"
 
       - name: Node.js
         uses: actions/setup-node@v4
