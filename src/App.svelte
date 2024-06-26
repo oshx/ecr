@@ -1,7 +1,7 @@
 <script>
-  import * as routes from "./router/routes.config";
-  import * as Router from "svelte-spa-router";
-  import * as Credit from "./components/Credit.svelte";
+  import routes from "~/src/router/routes.config";
+  import Router from "svelte-spa-router";
+  import Credit from "~/src/components/Credit.svelte";
 </script>
 
 <Router {routes} />
