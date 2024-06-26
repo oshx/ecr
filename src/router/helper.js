@@ -1,6 +1,6 @@
 import { parse, compile } from "path-to-regexp";
 export * from "svelte-spa-router";
-import queryStringTool from "query-string";
+import { default as queryStringTool } from "query-string";
 export { queryStringTool };
 
 export const href = (path, params = {}, options = {}) => {

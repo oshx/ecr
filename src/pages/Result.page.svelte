@@ -2,10 +2,10 @@
   import { beforeUpdate } from "svelte";
   import { convertParamToScore, convertScoreToResult } from "~/src/core/ecr";
   import { SERVICE_NAME } from "~/src/core/constants";
-  import ExperimentSheet from "~/src/components/ExperimentSheet.svelte";
+  import * as ExperimentSheet from "~/src/components/ExperimentSheet.svelte";
   import { PATH_EXPERIMENT } from "~/src/router/routes.config";
   import { href, link } from "~/src/router/helper";
-  import InformationSheet from "~/src/components/InformationSheet.svelte";
+  import * as InformationSheet from "~/src/components/InformationSheet.svelte";
 
   export let params;
 
