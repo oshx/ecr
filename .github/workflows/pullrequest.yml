@@ -1,5 +1,5 @@
 name: GitHub Actions for Pull Request
-run-name: [${{ github.actor }}] runs pull request testing ⚙️
+run-name: ${{ github.actor }} runs pull request testing ⚙️
 on:
   pull_request:
     branches:

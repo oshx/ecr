@@ -1,5 +1,5 @@
 name: GitHub Actions for Pages Deployment
-run-name: [${{ github.actor }}] runs deployment 🚀
+run-name: ${{ github.actor }} runs deployment 🚀
 on:
   push:
     branches:
