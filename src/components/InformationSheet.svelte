@@ -1,5 +1,5 @@
 <script>
-  import { QuestionList, ResultList } from "../core/constants";
+  import { QuestionList, ResultList } from "~/src/core/constants";
 
   export let intro = false;
   export let block = !!intro;
