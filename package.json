@@ -24,6 +24,9 @@
       "sourceMap": false
     }
   },
+  "@parcel/transformer-css": {
+    "diagnostic": false
+  },
   "license": "UNLICENSED",
   "devDependencies": {
     "@parcel/config-default": "^2.12.0",
