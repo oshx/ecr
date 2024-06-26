@@ -2,11 +2,12 @@
   "name": "ecr",
   "version": "1.0.0",
   "description": "성인애착유형 검사지",
+  "source": "src/index.html",
   "scripts": {
-    "build": "parcel build ./src/index.html --log-level info",
-    "dev": "parcel ./src/index.html",
-    "bust": "rimraf ./.parcel-cache",
-    "test": "parcel ./src/index.html --https"
+    "build": "parcel build",
+    "dev": "parcel",
+    "bust": "rimraf ./.parcel-cache ./public ./dist",
+    "tls": "parcel --https"
   },
   "keywords": [
     "svelte",
