@@ -1,12 +1,12 @@
 <script>
-  import { QuestionList, SERVICE_NAME } from "../core/constants";
-  import { convertAnswerToParam } from "../core/ecr";
-  import { href, push } from "../router/helper";
-  import { PATH_RESULT } from "../router/routes.config";
-  import ExperimentSheet from "../components/ExperimentSheet.svelte";
-  import ProgressManager from "../components/ProgressManager.svelte";
-  import Message from "../components/Message.svelte";
-  import InformationSheet from "../components/InformationSheet.svelte";
+  import { QuestionList, SERVICE_NAME } from "~/src/core/constants";
+  import { convertAnswerToParam } from "~/src/core/ecr";
+  import { href, push } from "~/src/router/helper";
+  import { PATH_RESULT } from "~/src/router/routes.config";
+  import * as ExperimentSheet from "~/src/components/ExperimentSheet.svelte";
+  import * as ProgressManager from "~/src/components/ProgressManager.svelte";
+  import * as Message from "~/src/components/Message.svelte";
+  import * as InformationSheet from "~/src/components/InformationSheet.svelte";
 
   let message = null;
   let answerList = Array(QuestionList.length).fill(0);

@@ -1,6 +1,6 @@
 <script>
-  import { href, link } from "../router/helper";
-  import { PATH_EXPERIMENT } from "../router/routes.config";
+  import { href, link } from "~/src/router/helper";
+  import { PATH_EXPERIMENT } from "~/src/router/routes.config";
 
   const startPath = href(PATH_EXPERIMENT);
 </script>

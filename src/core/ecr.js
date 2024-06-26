@@ -9,7 +9,7 @@ import {
   SEPARATOR,
   STEP_BASE,
   STEP_CHUNK,
-} from "./constants";
+} from "~/src/core/constants";
 
 const convertAnswerToChunk = (answerList, unit) =>
   Array(Math.ceil(answerList.length / unit))

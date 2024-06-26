@@ -1,6 +1,6 @@
 <script>
   import { beforeUpdate, createEventDispatcher } from "svelte";
-  import { QuestionList, ScoreLabelMap } from "../core/constants";
+  import { QuestionList, ScoreLabelMap } from "~/src/core/constants";
 
   export let answerList = [];
   export let readonly = false;

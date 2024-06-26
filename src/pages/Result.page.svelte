@@ -1,12 +1,11 @@
 <script>
   import { beforeUpdate } from "svelte";
-  import { convertParamToScore, convertScoreToResult } from "../core/ecr";
-  import { SERVICE_NAME } from "../core/constants";
-  import ExperimentSheet from "../components/ExperimentSheet.svelte";
-  import { PATH_EXPERIMENT } from "../router/routes.config";
-  import { href, link } from "../router/helper";
-  import InformationSheet from "../components/InformationSheet.svelte";
-  import Credit from "../components/Credit.svelte";
+  import { convertParamToScore, convertScoreToResult } from "~/src/core/ecr";
+  import { SERVICE_NAME } from "~/src/core/constants";
+  import * as ExperimentSheet from "~/src/components/ExperimentSheet.svelte";
+  import { PATH_EXPERIMENT } from "~/src/router/routes.config";
+  import { href, link } from "~/src/router/helper";
+  import * as InformationSheet from "~/src/components/InformationSheet.svelte";
 
   export let params;
 
